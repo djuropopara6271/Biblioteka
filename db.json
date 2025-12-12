@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Admin",
+      "email": "admin@site.com",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "name": "User",
+      "email": "user@site.com",
+      "password": "user123",
+      "role": "user"
+    }
+  ],
+  "books": [],
+  "loans": []
+}
