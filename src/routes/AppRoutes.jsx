@@ -3,6 +3,10 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Admin from "../pages/Admin";
+import MyLoans from "../pages/MyLoans";
+
+import ProtectedRoute from "./ProtectedRoute";
+import AdminRoute from "./AdminRoute";
 
 export default function AppRoutes() {
   return (
@@ -10,7 +14,25 @@ export default function AppRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/admin" element={<Admin />} />
+
+      <Route
+        path="/my-loans"
+        element={
+          <ProtectedRoute>
+            <MyLoans />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin"
+        element={
+          <AdminRoute>
+            <Admin />
+          </AdminRoute>
+        }
+      />
+
       <Route
         path="*"
         element={<div style={{ padding: 16 }}>404 - Not found</div>}

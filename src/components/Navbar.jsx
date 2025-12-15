@@ -25,6 +25,8 @@ export default function Navbar() {
         <NavLink to="/">Home</NavLink>
         <NavLink to="/admin">Admin</NavLink>
 
+        {user && <NavLink to="/my-loans">My loans</NavLink>}
+
         {!user && (
           <>
             <NavLink to="/login">Login</NavLink>
