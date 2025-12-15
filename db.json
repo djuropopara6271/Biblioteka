@@ -15,6 +15,24 @@
       "role": "user"
     }
   ],
-  "books": [],
-  "loans": []
+  "books": [
+    {
+      "id": 1,
+      "title": "Clean Code",
+      "author": "Robert Rexono",
+      "available": true
+    },
+    {
+      "id": 2,
+      "title": "JavaScript",
+      "author": "Milos Milasinovic",
+      "available": true
+    },
+    {
+      "title": "Python",
+      "author": "Nestor",
+      "available": true,
+      "id": 3
+    }
+  ]
 }
