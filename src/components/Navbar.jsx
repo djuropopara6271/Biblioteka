@@ -1,6 +1,15 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
   return (
     <nav
       style={{
@@ -8,12 +17,34 @@ export default function Navbar() {
         gap: 12,
         padding: 12,
         borderBottom: "1px solid #333",
+        alignItems: "center",
+        justifyContent: "space-between",
       }}
     >
-      <NavLink to="/">Home</NavLink>
-      <NavLink to="/login">Login</NavLink>
-      <NavLink to="/register">Register</NavLink>
-      <NavLink to="/admin">Admin</NavLink>
+      <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="/admin">Admin</NavLink>
+
+        {!user && (
+          <>
+            <NavLink to="/login">Login</NavLink>
+            <NavLink to="/register">Register</NavLink>
+          </>
+        )}
+      </div>
+
+      <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+        {user ? (
+          <>
+            <span>
+              {user.name} ({user.role})
+            </span>
+            <button onClick={handleLogout}>Logout</button>
+          </>
+        ) : (
+          <span>Guest</span>
+        )}
+      </div>
     </nav>
   );
 }
