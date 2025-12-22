@@ -5,6 +5,7 @@ export default function Admin() {
   const [books, setBooks] = useState([]);
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
+  const [editingId, setEditingId] = useState(null);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -15,27 +16,60 @@ export default function Admin() {
     try {
       const res = await axios.get("http://localhost:3001/books");
       setBooks(res.data);
-    } catch (err) {
+    } catch {
       setError("Greška pri učitavanju knjiga");
     }
   };
 
-  const addBook = async (e) => {
+  const resetForm = () => {
+    setTitle("");
+    setAuthor("");
+    setEditingId(null);
+  };
+
+  const addOrUpdateBook = async (e) => {
     e.preventDefault();
     setError("");
 
     try {
-      await axios.post("http://localhost:3001/books", {
-        title,
-        author,
-        available: true,
-      });
+      if (editingId) {
+        // UPDATE
+        await axios.put(`http://localhost:3001/books/${editingId}`, {
+          title,
+          author,
+          available: true,
+        });
+      } else {
+        // CREATE
+        await axios.post("http://localhost:3001/books", {
+          title,
+          author,
+          available: true,
+        });
+      }
 
-      setTitle("");
-      setAuthor("");
+      resetForm();
       fetchBooks();
-    } catch (err) {
-      setError("Greška pri dodavanju knjige");
+    } catch {
+      setError("Greška pri snimanju knjige");
+    }
+  };
+
+  const editBook = (book) => {
+    setEditingId(book.id);
+    setTitle(book.title);
+    setAuthor(book.author);
+  };
+
+  const deleteBook = async (id) => {
+    if (!window.confirm("Da li ste sigurni da želite da obrišete knjigu?"))
+      return;
+
+    try {
+      await axios.delete(`http://localhost:3001/books/${id}`);
+      fetchBooks();
+    } catch {
+      setError("Greška pri brisanju knjige");
     }
   };
 
@@ -43,8 +77,8 @@ export default function Admin() {
     <div>
       <h1>Admin panel – knjige</h1>
 
-      {/* Forma za dodavanje knjige */}
-      <form onSubmit={addBook} style={{ marginBottom: 20 }}>
+      {/* Forma za dodavanje / izmenu */}
+      <form onSubmit={addOrUpdateBook} style={{ marginBottom: 20 }}>
         <input
           type="text"
           placeholder="Naslov knjige"
@@ -63,8 +97,14 @@ export default function Admin() {
         />
 
         <button type="submit" style={{ marginLeft: 10 }}>
-          Dodaj knjigu
+          {editingId ? "Sačuvaj izmene" : "Dodaj knjigu"}
         </button>
+
+        {editingId && (
+          <button type="button" onClick={resetForm} style={{ marginLeft: 10 }}>
+            Otkaži
+          </button>
+        )}
       </form>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
@@ -76,6 +116,15 @@ export default function Admin() {
         {books.map((book) => (
           <li key={book.id}>
             <strong>{book.title}</strong> – {book.author}
+            <button onClick={() => editBook(book)} style={{ marginLeft: 10 }}>
+              Izmeni
+            </button>
+            <button
+              onClick={() => deleteBook(book.id)}
+              style={{ marginLeft: 5 }}
+            >
+              Obriši
+            </button>
           </li>
         ))}
       </ul>
