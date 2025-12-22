@@ -20,19 +20,35 @@
       "id": 1,
       "title": "Clean Code",
       "author": "Robert Rexono",
-      "available": true
+      "available": false
     },
     {
       "id": 2,
       "title": "JavaScript",
       "author": "Milos Milasinovic",
-      "available": true
+      "available": false
     },
     {
       "title": "Python Clean code perfect",
       "author": "Nestor Bozovic",
       "available": true,
       "id": 3
+    }
+  ],
+  "loans": [
+    {
+      "userId": 2,
+      "bookId": 1,
+      "date": "2025-12-22",
+      "status": "borrowed",
+      "id": 1
+    },
+    {
+      "userId": 2,
+      "bookId": 2,
+      "date": "2025-12-22",
+      "status": "borrowed",
+      "id": 2
     }
   ]
 }
