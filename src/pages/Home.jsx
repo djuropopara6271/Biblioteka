@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const { user } = useAuth();
@@ -86,6 +87,9 @@ export default function Home() {
             >
               Pozajmi
             </button>
+            <Link style={{ marginLeft: 10 }} to={`/books/${book.id}`}>
+              Detalji
+            </Link>
           </li>
         ))}
       </ul>

@@ -38,7 +38,7 @@
     {
       "title": "Python Clean code perfect",
       "author": "Nestor Bozovic",
-      "available": true,
+      "available": false,
       "id": 3
     },
     {
@@ -50,7 +50,7 @@
     {
       "title": "Tajne Menadzmenta",
       "author": "Mihajlo Hadzi Arbutina",
-      "available": false,
+      "available": true,
       "id": 5
     },
     {
@@ -127,15 +127,17 @@
       "userId": 3,
       "bookId": 1,
       "date": "2025-12-24",
-      "status": "borrowed",
-      "id": 5
+      "status": "returned",
+      "id": 5,
+      "returnDate": "2025-12-24"
     },
     {
       "userId": 3,
       "bookId": 5,
       "date": "2025-12-24",
-      "status": "borrowed",
-      "id": 6
+      "status": "returned",
+      "id": 6,
+      "returnDate": "2025-12-24"
     },
     {
       "userId": 3,
@@ -143,6 +145,20 @@
       "date": "2025-12-24",
       "status": "borrowed",
       "id": 7
+    },
+    {
+      "userId": 3,
+      "bookId": 1,
+      "date": "2025-12-24",
+      "status": "borrowed",
+      "id": 8
+    },
+    {
+      "userId": 3,
+      "bookId": 3,
+      "date": "2025-12-24",
+      "status": "borrowed",
+      "id": 9
     }
   ]
 }

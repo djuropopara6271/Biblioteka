@@ -5,6 +5,7 @@ import Register from "../pages/Register";
 import Admin from "../pages/Admin";
 import MyLoans from "../pages/MyLoans";
 import Stats from "../pages/Stats";
+import BookDetails from "../pages/BookDetails";
 
 import ProtectedRoute from "./ProtectedRoute";
 import AdminRoute from "./AdminRoute";
@@ -15,6 +16,7 @@ export default function AppRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/books/:id" element={<BookDetails />} />
 
       <Route
         path="/my-loans"
