@@ -24,6 +24,7 @@ export default function Navbar() {
       <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
         <NavLink to="/">Home</NavLink>
         <NavLink to="/admin">Admin</NavLink>
+        {user?.role === "admin" && <NavLink to="/stats">Stats</NavLink>}
 
         {user && <NavLink to="/my-loans">My loans</NavLink>}
 
