@@ -27,67 +27,99 @@
       "id": 1,
       "title": "Clean Code",
       "author": "Robert Rexono",
-      "available": false
+      "available": false,
+      "imageUrl": "/covers/clean-code.png"
     },
     {
       "id": 2,
       "title": "JavaScript",
-      "author": "Milos Milasinovic",
-      "available": true
+      "author": "Miloš Milasinović",
+      "available": true,
+      "imageUrl": "/covers/javascript.png"
     },
     {
-      "title": "Python Clean code perfect",
-      "author": "Nestor Bozovic",
+      "id": 3,
+      "title": "Python Clean Code Perfect",
+      "author": "Nestor Božović",
       "available": false,
-      "id": 3
+      "imageUrl": "/covers/python-clean-code-perfect.png"
     },
     {
+      "id": 4,
       "title": "Biografija",
-      "author": "Jovana Ciric",
+      "author": "Jovana Ćirić",
       "available": false,
-      "id": 4
+      "imageUrl": "/covers/biografija.png"
     },
     {
-      "title": "Tajne Menadzmenta",
-      "author": "Mihajlo Hadzi Arbutina",
+      "id": 5,
+      "title": "Tajne menadžmenta",
+      "author": "Mihajlo Hadži Arbutina",
       "available": true,
-      "id": 5
+      "imageUrl": "/covers/tajne-menadzmenta.png"
     },
     {
+      "id": 6,
       "title": "Master of Network",
-      "author": "Igor Romanic",
+      "author": "Igor Romanić",
       "available": true,
-      "id": 6
+      "imageUrl": "/covers/master-of-network.png"
     },
     {
-      "title": "AI Future ",
-      "author": "Ilija Mihajlovic",
+      "id": 7,
+      "title": "AI Future",
+      "author": "Ilija Mihajlović",
       "available": true,
-      "id": 7
+      "imageUrl": "/covers/ai-future.png"
     },
     {
-      "title": "Fishing in development",
-      "author": "Andrija Prodanovic",
+      "id": 8,
+      "title": "Fishing in Development",
+      "author": "Andrija Prodanović",
       "available": true,
-      "id": 8
+      "imageUrl": "/covers/fishing-in-development.png"
     },
     {
-      "title": "First steps",
-      "author": "Ignjat Dimic",
+      "id": 9,
+      "title": "First Steps",
+      "author": "Ignjat Dimić",
       "available": true,
-      "id": 9
+      "imageUrl": "/covers/first-steps.png"
     },
     {
+      "id": 10,
       "title": "Program Ship",
       "author": "Leonardo da Vinci",
       "available": true,
-      "id": 10
+      "imageUrl": "/covers/program-ship.png"
     },
     {
-      "title": "Software cup",
-      "author": "Mladen Opacic",
+      "id": 11,
+      "title": "Software Cup",
+      "author": "Mladen Opačić",
       "available": true,
-      "id": 11
+      "imageUrl": "/covers/software-cup.png"
+    },
+    {
+      "id": 12,
+      "title": "Management of Locals",
+      "author": "Jovan Dujić",
+      "available": true,
+      "imageUrl": "/covers/management-of-locals.png"
+    },
+    {
+      "id": 13,
+      "title": "Design of AI",
+      "author": "Mark Max",
+      "available": true,
+      "imageUrl": "/covers/design-of-ai.png"
+    },
+    {
+      "id": 14,
+      "title": "Duolingo",
+      "author": "Jeff Phillips",
+      "available": true,
+      "imageUrl": "/covers/duolingo.png"
     }
   ],
   "loans": [

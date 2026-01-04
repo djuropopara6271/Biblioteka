@@ -8,18 +8,19 @@ export default function Home() {
   const [books, setBooks] = useState([]);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    fetchBooks();
-  }, []);
-
   const fetchBooks = async () => {
+    setError("");
     try {
       const res = await axios.get("http://localhost:3001/books");
       setBooks(res.data);
     } catch {
-      setError("Greška pri učitavanju knjiga");
+      setError("Greška pri učitavanju knjiga.");
     }
   };
+
+  useEffect(() => {
+    fetchBooks();
+  }, []);
 
   const borrowBook = async (book) => {
     setError("");
@@ -50,7 +51,7 @@ export default function Home() {
 
       fetchBooks();
     } catch {
-      setError("Greška pri pozajmici knjige");
+      setError("Greška pri pozajmljivanju knjige.");
     }
   };
 
@@ -69,27 +70,54 @@ export default function Home() {
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       <h2>Knjige</h2>
-      <ul>
-        {books.length === 0 && <li>Nema knjiga u sistemu</li>}
+
+      <ul style={{ listStyle: "none", padding: 0 }}>
+        {books.length === 0 && <li>Nema knjiga u sistemu.</li>}
 
         {books.map((book) => (
-          <li key={book.id} style={{ marginBottom: 8 }}>
-            <strong>{book.title}</strong> – {book.author}{" "}
-            {book.available ? (
-              <span>(dostupna)</span>
-            ) : (
-              <span>(nije dostupna)</span>
+          <li
+            key={book.id}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              marginBottom: 12,
+              borderBottom: "1px solid #ddd",
+              paddingBottom: 10,
+            }}
+          >
+            {book.imageUrl && (
+              <img
+                src={book.imageUrl}
+                alt={book.title}
+                width={70}
+                height={100}
+                style={{
+                  objectFit: "cover",
+                  border: "1px solid #ccc",
+                  borderRadius: 4,
+                }}
+              />
             )}
-            <button
-              style={{ marginLeft: 10 }}
-              disabled={!book.available}
-              onClick={() => borrowBook(book)}
-            >
-              Pozajmi
-            </button>
-            <Link style={{ marginLeft: 10 }} to={`/books/${book.id}`}>
-              Detalji
-            </Link>
+
+            <div>
+              <div>
+                <strong>{book.title}</strong> – {book.author}{" "}
+                {book.available ? "(dostupna)" : "(nije dostupna)"}
+              </div>
+
+              <div style={{ marginTop: 6 }}>
+                <button
+                  onClick={() => borrowBook(book)}
+                  disabled={!book.available}
+                  style={{ marginRight: 8 }}
+                >
+                  Pozajmi
+                </button>
+
+                <Link to={`/books/${book.id}`}>Detalji</Link>
+              </div>
+            </div>
           </li>
         ))}
       </ul>
