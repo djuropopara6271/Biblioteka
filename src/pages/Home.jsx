@@ -9,6 +9,8 @@ export default function Home() {
   const [error, setError] = useState("");
 
   const [selectedCategory, setSelectedCategory] = useState("ALL");
+  const [query, setQuery] = useState("");
+  const [sortMode, setSortMode] = useState("TITLE_ASC"); // TITLE_ASC | TITLE_DESC | AVAILABLE_FIRST
 
   const fetchBooks = async () => {
     setError("");
@@ -55,7 +57,7 @@ export default function Home() {
     }
   };
 
-  // Sve kategorije iz knjiga (ALL + unique)
+  // Kategorije
   const categories = useMemo(() => {
     const unique = Array.from(
       new Set(books.map((b) => b.category).filter(Boolean))
@@ -64,10 +66,42 @@ export default function Home() {
     return ["ALL", ...unique];
   }, [books]);
 
-  const filteredBooks = useMemo(() => {
-    if (selectedCategory === "ALL") return books;
-    return books.filter((b) => b.category === selectedCategory);
-  }, [books, selectedCategory]);
+  // Filter + Search + Sort
+  const visibleBooks = useMemo(() => {
+    let list = [...books];
+
+    // category
+    if (selectedCategory !== "ALL") {
+      list = list.filter((b) => b.category === selectedCategory);
+    }
+
+    // search (title or author)
+    const q = query.trim().toLowerCase();
+    if (q) {
+      list = list.filter((b) => {
+        const t = (b.title || "").toLowerCase();
+        const a = (b.author || "").toLowerCase();
+        return t.includes(q) || a.includes(q);
+      });
+    }
+
+    // sort
+    if (sortMode === "TITLE_ASC") {
+      list.sort((a, b) => (a.title || "").localeCompare(b.title || ""));
+    } else if (sortMode === "TITLE_DESC") {
+      list.sort((a, b) => (b.title || "").localeCompare(a.title || ""));
+    } else if (sortMode === "AVAILABLE_FIRST") {
+      list.sort((a, b) => {
+        // available true first
+        if (a.available === b.available) {
+          return (a.title || "").localeCompare(b.title || "");
+        }
+        return a.available ? -1 : 1;
+      });
+    }
+
+    return list;
+  }, [books, selectedCategory, query, sortMode]);
 
   return (
     <div>
@@ -85,8 +119,11 @@ export default function Home() {
 
       <h2>Knjige</h2>
 
-      {/* Filter po kategoriji */}
-      <div style={{ marginBottom: 12 }}>
+      {/* Controls */}
+      <div
+        style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 12 }}
+      >
+        {/* Category */}
         <label>
           Kategorija:&nbsp;
           <select
@@ -101,19 +138,42 @@ export default function Home() {
           </select>
         </label>
 
-        <span style={{ marginLeft: 12, opacity: 0.8 }}>
-          Prikaz: <strong>{filteredBooks.length}</strong> / {books.length}
+        {/* Search */}
+        <label>
+          Pretraga:&nbsp;
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Naslov ili autor..."
+          />
+        </label>
+
+        {/* Sort */}
+        <label>
+          Sort:&nbsp;
+          <select
+            value={sortMode}
+            onChange={(e) => setSortMode(e.target.value)}
+          >
+            <option value="TITLE_ASC">Naslov A–Z</option>
+            <option value="TITLE_DESC">Naslov Z–A</option>
+            <option value="AVAILABLE_FIRST">Dostupne prvo</option>
+          </select>
+        </label>
+
+        <span style={{ opacity: 0.8 }}>
+          Prikaz: <strong>{visibleBooks.length}</strong> / {books.length}
         </span>
       </div>
 
       <ul style={{ listStyle: "none", padding: 0 }}>
         {books.length === 0 && <li>Nema knjiga u sistemu.</li>}
 
-        {books.length > 0 && filteredBooks.length === 0 && (
-          <li>Nema knjiga za izabranu kategoriju.</li>
+        {books.length > 0 && visibleBooks.length === 0 && (
+          <li>Nema rezultata za zadate filtere.</li>
         )}
 
-        {filteredBooks.map((book) => (
+        {visibleBooks.map((book) => (
           <li
             key={book.id}
             style={{
