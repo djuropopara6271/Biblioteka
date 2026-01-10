@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
@@ -7,6 +7,8 @@ export default function Home() {
   const { user } = useAuth();
   const [books, setBooks] = useState([]);
   const [error, setError] = useState("");
+
+  const [selectedCategory, setSelectedCategory] = useState("ALL");
 
   const fetchBooks = async () => {
     setError("");
@@ -36,7 +38,6 @@ export default function Home() {
     }
 
     try {
-      // 1) Kreiraj loan zapis
       await axios.post("http://localhost:3001/loans", {
         userId: user.id,
         bookId: book.id,
@@ -44,7 +45,6 @@ export default function Home() {
         status: "borrowed",
       });
 
-      // 2) Obeleži knjigu kao nedostupnu
       await axios.patch(`http://localhost:3001/books/${book.id}`, {
         available: false,
       });
@@ -54,6 +54,20 @@ export default function Home() {
       setError("Greška pri pozajmljivanju knjige.");
     }
   };
+
+  // Sve kategorije iz knjiga (ALL + unique)
+  const categories = useMemo(() => {
+    const unique = Array.from(
+      new Set(books.map((b) => b.category).filter(Boolean))
+    );
+    unique.sort((a, b) => a.localeCompare(b));
+    return ["ALL", ...unique];
+  }, [books]);
+
+  const filteredBooks = useMemo(() => {
+    if (selectedCategory === "ALL") return books;
+    return books.filter((b) => b.category === selectedCategory);
+  }, [books, selectedCategory]);
 
   return (
     <div>
@@ -71,10 +85,35 @@ export default function Home() {
 
       <h2>Knjige</h2>
 
+      {/* Filter po kategoriji */}
+      <div style={{ marginBottom: 12 }}>
+        <label>
+          Kategorija:&nbsp;
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+          >
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <span style={{ marginLeft: 12, opacity: 0.8 }}>
+          Prikaz: <strong>{filteredBooks.length}</strong> / {books.length}
+        </span>
+      </div>
+
       <ul style={{ listStyle: "none", padding: 0 }}>
         {books.length === 0 && <li>Nema knjiga u sistemu.</li>}
 
-        {books.map((book) => (
+        {books.length > 0 && filteredBooks.length === 0 && (
+          <li>Nema knjiga za izabranu kategoriju.</li>
+        )}
+
+        {filteredBooks.map((book) => (
           <li
             key={book.id}
             style={{
@@ -104,6 +143,10 @@ export default function Home() {
               <div>
                 <strong>{book.title}</strong> – {book.author}{" "}
                 {book.available ? "(dostupna)" : "(nije dostupna)"}
+              </div>
+
+              <div style={{ opacity: 0.85, marginTop: 2 }}>
+                Kategorija: <strong>{book.category || "N/A"}</strong>
               </div>
 
               <div style={{ marginTop: 6 }}>

@@ -28,100 +28,115 @@
       "title": "Clean Code",
       "author": "Robert Rexono",
       "available": false,
-      "imageUrl": "/covers/clean-code.png"
+      "imageUrl": "/covers/clean-code.png",
+      "category": "Programming"
     },
     {
       "id": 2,
       "title": "JavaScript",
       "author": "Miloš Milasinović",
       "available": true,
-      "imageUrl": "/covers/javascript.png"
+      "imageUrl": "/covers/javascript.png",
+      "category": "Programming"
     },
     {
       "id": 3,
       "title": "Python Clean Code Perfect",
       "author": "Nestor Božović",
       "available": false,
-      "imageUrl": "/covers/python-clean-code-perfect.png"
+      "imageUrl": "/covers/python-clean-code-perfect.png",
+      "category": "Programming"
     },
     {
       "id": 4,
       "title": "Biografija",
       "author": "Jovana Ćirić",
       "available": false,
-      "imageUrl": "/covers/biografija.png"
+      "imageUrl": "/covers/biografija.png",
+      "category": "Biography"
     },
     {
       "id": 5,
       "title": "Tajne menadžmenta",
       "author": "Mihajlo Hadži Arbutina",
       "available": true,
-      "imageUrl": "/covers/tajne-menadzmenta.png"
+      "imageUrl": "/covers/tajne-menadzmenta.png",
+      "category": "Management"
     },
     {
       "id": 6,
       "title": "Master of Network",
       "author": "Igor Romanić",
       "available": true,
-      "imageUrl": "/covers/master-of-network.png"
+      "imageUrl": "/covers/master-of-network.png",
+      "category": "Networking"
     },
     {
       "id": 7,
       "title": "AI Future",
       "author": "Ilija Mihajlović",
       "available": true,
-      "imageUrl": "/covers/ai-future.png"
+      "imageUrl": "/covers/ai-future.png",
+      "category": "AI"
     },
     {
       "id": 8,
       "title": "Fishing in Development",
       "author": "Andrija Prodanović",
       "available": true,
-      "imageUrl": "/covers/fishing-in-development.png"
+      "imageUrl": "/covers/fishing-in-development.png",
+      "category": "Programming"
     },
     {
       "id": 9,
       "title": "First Steps",
       "author": "Ignjat Dimić",
       "available": true,
-      "imageUrl": "/covers/first-steps.png"
+      "imageUrl": "/covers/first-steps.png",
+      "category": "Education"
     },
     {
       "id": 10,
       "title": "Program Ship",
       "author": "Leonardo da Vinci",
       "available": true,
-      "imageUrl": "/covers/program-ship.png"
+      "imageUrl": "/covers/program-ship.png",
+      "category": "Programming"
     },
     {
       "id": 11,
       "title": "Software Cup",
       "author": "Mladen Opačić",
       "available": true,
-      "imageUrl": "/covers/software-cup.png"
+      "imageUrl": "/covers/software-cup.png",
+      "category": "Programming"
     },
     {
       "id": 12,
       "title": "Management of Locals",
       "author": "Jovan Dujić",
       "available": true,
-      "imageUrl": "/covers/management-of-locals.png"
+      "imageUrl": "/covers/management-of-locals.png",
+      "category": "Management"
     },
     {
       "id": 13,
       "title": "Design of AI",
       "author": "Mark Max",
       "available": true,
-      "imageUrl": "/covers/design-of-ai.png"
+      "imageUrl": "/covers/design-of-ai.png",
+      "category": "AI"
     },
     {
       "id": 14,
       "title": "Duolingo",
       "author": "Jeff Phillips",
       "available": true,
-      "imageUrl": "/covers/duolingo.png"
+      "imageUrl": "/covers/duolingo.png",
+      "category": "Education"
     }
   ],
+
   "loans": [
     {
       "userId": 2,
