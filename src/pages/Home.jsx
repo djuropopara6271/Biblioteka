@@ -92,7 +92,6 @@ export default function Home() {
       list.sort((a, b) => (b.title || "").localeCompare(a.title || ""));
     } else if (sortMode === "AVAILABLE_FIRST") {
       list.sort((a, b) => {
-        // available true first
         if (a.available === b.available) {
           return (a.title || "").localeCompare(b.title || "");
         }
