@@ -10,43 +10,67 @@ export default function Navbar() {
     navigate("/");
   };
 
+  const linkClass = ({ isActive }) =>
+    `nav__link ${isActive ? "nav__link--active" : ""}`;
+
   return (
-    <nav
-      style={{
-        display: "flex",
-        gap: 12,
-        padding: 12,
-        borderBottom: "1px solid #333",
-        alignItems: "center",
-        justifyContent: "space-between",
-      }}
-    >
-      <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/admin">Admin</NavLink>
-        {user?.role === "admin" && <NavLink to="/stats">Stats</NavLink>}
+    <nav className="nav">
+      <div className="nav__inner">
+        <div className="brand">
+          <div className="brand__title">📚 Biblioteka</div>
+          <div className="brand__tag">vintage edition</div>
+        </div>
 
-        {user && <NavLink to="/my-loans">My loans</NavLink>}
+        <div className="nav__links">
+          <NavLink className={linkClass} to="/">
+            Home
+          </NavLink>
 
-        {!user && (
-          <>
-            <NavLink to="/login">Login</NavLink>
-            <NavLink to="/register">Register</NavLink>
-          </>
-        )}
-      </div>
+          {/* Admin link je smisleno vidljiv samo adminu */}
+          {user?.role === "admin" && (
+            <NavLink className={linkClass} to="/admin">
+              Admin
+            </NavLink>
+          )}
 
-      <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-        {user ? (
-          <>
-            <span>
-              {user.name} ({user.role})
-            </span>
-            <button onClick={handleLogout}>Logout</button>
-          </>
-        ) : (
-          <span>Guest</span>
-        )}
+          {user?.role === "admin" && (
+            <NavLink className={linkClass} to="/stats">
+              Stats
+            </NavLink>
+          )}
+
+          {user && (
+            <NavLink className={linkClass} to="/my-loans">
+              My loans
+            </NavLink>
+          )}
+
+          {!user && (
+            <>
+              <NavLink className={linkClass} to="/login">
+                Login
+              </NavLink>
+              <NavLink className={linkClass} to="/register">
+                Register
+              </NavLink>
+            </>
+          )}
+        </div>
+
+        <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+          {user ? (
+            <>
+              <span className="pill">
+                {user.name} ({user.role})
+              </span>
+              <button className="btn btn--primary" onClick={handleLogout}>
+                Logout
+              </button>
+            </>
+          ) : (
+            <span className="pill">Guest</span>
+          )}
+        </div>
       </div>
     </nav>
   );

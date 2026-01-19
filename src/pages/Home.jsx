@@ -70,12 +70,10 @@ export default function Home() {
   const visibleBooks = useMemo(() => {
     let list = [...books];
 
-    // category
     if (selectedCategory !== "ALL") {
       list = list.filter((b) => b.category === selectedCategory);
     }
 
-    // search (title or author)
     const q = query.trim().toLowerCase();
     if (q) {
       list = list.filter((b) => {
@@ -85,7 +83,6 @@ export default function Home() {
       });
     }
 
-    // sort
     if (sortMode === "TITLE_ASC") {
       list.sort((a, b) => (a.title || "").localeCompare(b.title || ""));
     } else if (sortMode === "TITLE_DESC") {
@@ -103,26 +100,22 @@ export default function Home() {
   }, [books, selectedCategory, query, sortMode]);
 
   return (
-    <div>
-      <h1>Online biblioteka</h1>
+    <div className="container">
+      <h1 className="page-title">Online biblioteka</h1>
+      <p className="page-sub">
+        {user ? (
+          <>
+            Ulogovan: <strong>{user.name}</strong> ({user.role})
+          </>
+        ) : (
+          <>Uloguj se da bi mogao da pozajmljuješ knjige.</>
+        )}
+      </p>
 
-      {user ? (
-        <p>
-          Ulogovan: <strong>{user.name}</strong> ({user.role})
-        </p>
-      ) : (
-        <p>Uloguj se da bi mogao da pozajmljuješ knjige.</p>
-      )}
-
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
-      <h2>Knjige</h2>
+      {error && <div className="alert alert--error">{error}</div>}
 
       {/* Controls */}
-      <div
-        style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 12 }}
-      >
-        {/* Category */}
+      <div className="controls">
         <label>
           Kategorija:&nbsp;
           <select
@@ -137,17 +130,16 @@ export default function Home() {
           </select>
         </label>
 
-        {/* Search */}
         <label>
           Pretraga:&nbsp;
           <input
+            className="input"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Naslov ili autor..."
           />
         </label>
 
-        {/* Sort */}
         <label>
           Sort:&nbsp;
           <select
@@ -160,69 +152,61 @@ export default function Home() {
           </select>
         </label>
 
-        <span style={{ opacity: 0.8 }}>
+        <span className="pill">
           Prikaz: <strong>{visibleBooks.length}</strong> / {books.length}
         </span>
       </div>
 
-      <ul style={{ listStyle: "none", padding: 0 }}>
-        {books.length === 0 && <li>Nema knjiga u sistemu.</li>}
+      {books.length === 0 && (
+        <div className="alert">Nema knjiga u sistemu.</div>
+      )}
 
-        {books.length > 0 && visibleBooks.length === 0 && (
-          <li>Nema rezultata za zadate filtere.</li>
-        )}
+      {books.length > 0 && visibleBooks.length === 0 && (
+        <div className="alert">Nema rezultata za zadate filtere.</div>
+      )}
 
+      <div className="grid grid--books">
         {visibleBooks.map((book) => (
-          <li
-            key={book.id}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 12,
-              marginBottom: 12,
-              borderBottom: "1px solid #ddd",
-              paddingBottom: 10,
-            }}
-          >
-            {book.imageUrl && (
-              <img
-                src={book.imageUrl}
-                alt={book.title}
-                width={70}
-                height={100}
-                style={{
-                  objectFit: "cover",
-                  border: "1px solid #ccc",
-                  borderRadius: 4,
-                }}
-              />
+          <div key={book.id} className="card book">
+            {book.imageUrl ? (
+              <img className="cover" src={book.imageUrl} alt={book.title} />
+            ) : (
+              <div className="cover" />
             )}
 
             <div>
-              <div>
-                <strong>{book.title}</strong> – {book.author}{" "}
-                {book.available ? "(dostupna)" : "(nije dostupna)"}
-              </div>
+              <h3 className="book__title">{book.title}</h3>
+              <div className="book__meta">{book.author}</div>
 
-              <div style={{ opacity: 0.85, marginTop: 2 }}>
+              <div className="book__meta" style={{ marginTop: 6 }}>
                 Kategorija: <strong>{book.category || "N/A"}</strong>
               </div>
 
-              <div style={{ marginTop: 6 }}>
+              <div
+                className={`badge ${
+                  book.available ? "badge--ok" : "badge--no"
+                }`}
+              >
+                {book.available ? "Dostupna" : "Nije dostupna"}
+              </div>
+
+              <div className="row">
                 <button
+                  className="btn btn--primary"
                   onClick={() => borrowBook(book)}
                   disabled={!book.available}
-                  style={{ marginRight: 8 }}
                 >
                   Pozajmi
                 </button>
 
-                <Link to={`/books/${book.id}`}>Detalji</Link>
+                <Link className="nav__link" to={`/books/${book.id}`}>
+                  Detalji
+                </Link>
               </div>
             </div>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
