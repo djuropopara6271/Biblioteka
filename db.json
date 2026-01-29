@@ -27,6 +27,13 @@
       "password": "milan123",
       "role": "user",
       "id": 4
+    },
+    {
+      "name": "joka",
+      "email": "jciric@sajt.com",
+      "password": "JOVANA11",
+      "role": "user",
+      "id": 5
     }
   ],
   "books": [
@@ -55,12 +62,12 @@
       "category": "Programming"
     },
     {
-      "id": 4,
-      "title": "Biografija",
+      "title": "Principles of design",
       "author": "Jovana Ćirić",
-      "available": false,
+      "category": "Education",
       "imageUrl": "/covers/biografija.png",
-      "category": "Biography"
+      "available": false,
+      "id": 4
     },
     {
       "id": 5,
@@ -212,6 +219,14 @@
       "date": "2025-12-24",
       "status": "borrowed",
       "id": 9
+    },
+    {
+      "userId": 5,
+      "bookId": 5,
+      "date": "2026-01-29",
+      "status": "returned",
+      "id": 10,
+      "returnDate": "2026-01-29"
     }
   ]
 }
