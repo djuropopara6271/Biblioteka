@@ -20,6 +20,13 @@
       "password": "djuro123",
       "role": "user",
       "id": 3
+    },
+    {
+      "name": "milan",
+      "email": "milan@site.com",
+      "password": "milan123",
+      "role": "user",
+      "id": 4
     }
   ],
   "books": [
@@ -136,7 +143,6 @@
       "category": "Education"
     }
   ],
-
   "loans": [
     {
       "userId": 2,
